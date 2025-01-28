@@ -1,8 +1,10 @@
 let currentPage = 0;
-const pageSize = 3;
+let pageSize = 5;
+
 
 function loadTask(pageNumber) {
     currentPage = pageNumber;
+    pageSize = parseInt($('#rowsPerPage').val()); // Получаем выбранное значение
     $.get(`/rest/tasks?pageNumber=${pageNumber}&pageSize=${pageSize}`, function (task) {
         $('#taskTable tbody').empty();
         task.forEach(task => {
@@ -12,11 +14,9 @@ function loadTask(pageNumber) {
                     <td>${task.description}</td>
                     <td>${task.status}</td>
                     <td>
-                       <td>
-                        <button onclick="editTask(${task.id})">Edit</button>
-                         <button class="delete" onclick="deleteTask(${task.id})">Delete</button>
-                     </td>
-                    </td>
+                    <button onclick="editTask(${task.id})">Edit</button>
+                    <button class="delete" onclick="deleteTask(${task.id})">Delete</button>
+                </td>
                 </tr>
             `);
         });
@@ -24,17 +24,84 @@ function loadTask(pageNumber) {
     });
 }
 
+
+
+
+function showList1(page_number) {
+    let url = "/rest/tasks?";
+
+    let countPerPage = $("#rowsPerPage").val();
+    if (countPerPage === null) {
+        countPerPage = 5;
+    }
+    url = url.concat("pageSize=").concat(countPerPage);
+
+    if (page_number !== null) {
+        url = url.concat("&pageNumber=").concat(page_number);
+    }
+
+    $.get(url, function (response) {
+        // remove all existing rows
+        $("tr:has(td)").remove();
+
+        //arr accounts data
+        $.each(response, function (i, item) {
+            $('<tr>').html("<td>"
+                + item.id + "</td><td>"
+                + item.description + "</td><td>"
+                + item.status + "</td><td>"
+                + "<button id='button_edit_" + item.id + "' onclick='editAcc(" + item.id + ")'>"
+                + "</button>" + "</td><td>"
+                + "<button id='button_delete_" + item.id + "' onclick='deleteAcc(" + item.id + ")'>"
+                + "</button>" + "</td>")
+                .appendTo('#taskTable');
+        });
+    });
+
+    let totalCount = getTotalCount();
+    let pagesCount = Math.ceil(totalCount / countPerPage);
+
+    // remove all existing paging buttons
+    $("button.pgn-bnt-styled").remove();
+
+    //add paging buttons
+    for (let i = 0; i < pagesCount; i++) {
+        let button_tag = "<button>" + (i + 1) + ("</button>");
+        let btn = $(button_tag)
+            .attr('id', "paging_button_" + i)
+            .attr('onclick', "showList(" + i + ")")
+            .addClass('pgn-bnt-styled');
+        $('#paging_buttons').append(btn);
+    }
+
+    // mak current page
+    if (page_number !== null) {
+        let identifier = "#paging_button_" + page_number;
+        $(identifier).css("color", "red").css("font-weight", "bold");
+    } else {
+        $("#paging_button_0").css("color", "red").css("font-weight", "bold");
+    }
+}
+
+
+
+
+
+
+
+
+
 function updatePagination() {
     $.get('/rest/tasks/count', function (totalCount) {
         const totalPages = Math.ceil(totalCount / pageSize);
         $('#pagination').empty();
         for (let i = 0; i < totalPages; i++) {
-            $('#pagination').append(`<button onclick="loadTask(${i})">${i + 1}</button>`);
+            $('#pagination').append(`<button onclick="showList(${i})">${i + 1}</button>`);
         }
     });
 }
 
-function addTask() {
+function addTask1() {
     let description = $("#description").val();
     let status = $("#status").val();
 
@@ -48,7 +115,7 @@ function addTask() {
         success: function () {
             $("#description").val("");
             $("#status").val("");
-            loadTask(currentPage); // Обновляем таблицу после добавления задачи
+            showList(currentPage); // Обновляем таблицу после добавления задачи
         }
     });
     return false;
@@ -73,7 +140,7 @@ function editTask(id) {
             contentType: 'application/json',
             data: JSON.stringify({ description, status }),
             success: function () {
-                loadTask(currentPage);
+                showList(currentPage);
             }
         });
     }
@@ -85,7 +152,7 @@ function deleteTask(id) {
             url: `/rest/tasks/${id}`,
             type: 'DELETE',
             success: function () {
-                loadTask(currentPage);
+                showList(currentPage);
             }
         });
     }
@@ -93,5 +160,5 @@ function deleteTask(id) {
 
 // Инициализация
 $(document).ready(function () {
-    loadTask(0);
+    showList(0);
 });

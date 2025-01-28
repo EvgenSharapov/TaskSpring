@@ -22,26 +22,35 @@
     <button onclick="addTask()">Add Task</button>
 </div>
 
+<div class="rows-per-page">
+    <label for="rowsPerPage"></label>
+    <select id="rowsPerPage" onchange="showList(0)">
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="50">50</option>
+    </select>
+</div>
+
 <table id="taskTable">
     <thead>
     <tr>
         <th>ID</th>
         <th>Description</th>
-        <th>Status</th>
-        <th>Actions</th>
-
+        <th class="status">Status</th>
+        <th class="action">Actions</th>
     </tr>
     </thead>
     <tbody>
-    <!-- Rows will be populated by JavaScript -->
     </tbody>
 </table>
 
 <div id="pagination">
-    <button onclick="loadTask(0)">1</button>
+    <button onclick="showList(0)">1</button>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="../css/script.js"></script>
+<script src="../css/script1.js"></script>
+
 </body>
 </html>

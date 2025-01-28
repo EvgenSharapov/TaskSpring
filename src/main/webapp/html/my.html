@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Management</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+<h1>Task Management</h1>
+
+<div class="form-container">
+    <h2>Add Task</h2>
+    <label for="description"></label>
+    <input type="text" id="description" placeholder="Description">
+    <label for="status"></label>
+    <select id="status">
+        <option value="DONE">DONE</option>
+        <option value="PAUSED">PAUSED</option>
+        <option value="IN_PROGRESS">IN_PROGRESS</option>
+    </select>
+    <button onclick="addTask()">Add Task</button>
+</div>
+
+<table id="taskTable">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Actions</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Rows will be populated by JavaScript -->
+    </tbody>
+</table>
+
+<div id="pagination">
+    <button onclick="loadTask(0)">1</button>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="../css/script.js"></script>
+</body>
+</html>

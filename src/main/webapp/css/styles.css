@@ -5,6 +5,64 @@ body {
     padding: 20px;
     color: #333;
 }
+.container-main {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    height: 100vh;
+}
+
+
+.container-table {
+    flex: 2;
+    overflow-y: auto;
+    max-height: 80%;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+.form-container {
+    flex: 1;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    max-height: 300px;
+}
+
+/* Стили для таблицы */
+#taskTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#taskTable th, #taskTable td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.form-container input, .form-container select, .form-container button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form-container button {
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+}
+
+.form-container button:hover {
+    background-color: #218838;
+}
+
+
 
 h1 {
     text-align: center;
@@ -36,12 +94,18 @@ h1 {
 
 .form-container input[type="text"],
 .form-container select {
-    width: 100%;
     padding: 8px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
+.form-container input[type="text"]{
+    width: 90%;
+}
+.form-container select {
+    width: 50%;
+}
+
 
 .form-container button {
     width: 100%;
@@ -56,14 +120,6 @@ h1 {
 .form-container button:hover {
     background-color: #9fbf43;
 }
-
-#taskTable {
-    width: 80%; /* Таблица стала уже */
-    margin: 0 auto; /* Центрирование таблицы */
-    border-collapse: collapse;
-    margin-bottom: 10px;
-}
-
 
 
 #taskTable th,
@@ -83,21 +139,58 @@ h1 {
     background-color: #f1f1f1;
 }
 
+
+#taskTable {
+    width: 95%;
+    border-collapse: collapse;
+}
+
+#taskTable th, #taskTable td {
+    padding: 5px;
+    border: 1px solid #9fbf43;
+}
+
+
+#taskTable .description-column {
+    width: 73%;
+}
+
+
+#taskTable .status-column {
+    width: 12%;
+}
+
+
+#taskTable .actions-column {
+    width: 12%;
+    text-align: center;
+}
+
+
+#taskTable .actions-column button {
+    margin: 2px;
+    padding: 5px 10px;
+    font-size: 14px;
+}
+
+
+
+
 #taskTable button {
-    padding: 0; /* Убираем внутренние отступы */
+    padding: 0;
     margin-right: 5px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    background-color: transparent; /* Прозрачный фон */
-    color: transparent; /* Прозрачный текст */
+    background-color: transparent;
+    color: transparent;
     opacity: 1;
     transition: background-color 0.3s ease;
-    width: 32px; /* Ширина кнопки (под размер изображения) */
-    height: 32px; /* Высота кнопки (под размер изображения) */
-    background-size: cover; /* Растягиваем изображение на всю кнопку */
-    background-position: center; /* Центрируем изображение */
-    background-repeat: no-repeat; /* Отключаем повторение изображения */
+    width: 45px;
+    height: 45px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 #taskTable button.edit-btn{
@@ -112,15 +205,15 @@ h1 {
 
 
 #taskTable button:hover {
-    background-color: #9fbf43; /* Цвет при наведении */
+    background-color: #9fbf43;
 }
 
 #taskTable button.delete {
-    background-color: #f44336; /* Красный цвет для кнопки Delete */
+    background-color: #f44336;
 }
 
 #taskTable button.delete:hover {
-    background-color: #d32f2f; /* Темнее при наведении */
+    background-color: #d32f2f;
 }
 
 #pagination {
@@ -162,7 +255,7 @@ h1 {
 }
 
 #taskTable .edit-btn:hover {
-    background-color: #218838;
+    background-color: #9fbf43;
 }
 
 #taskTable .delete-btn {
@@ -193,22 +286,21 @@ h1 {
 }
 
 
-/* Стили для контейнера */
 .rows-per-page {
     display: flex;
     align-items: center;
-    gap: 10px; /* Расстояние между элементами */
+    gap: 10px;
     font-family: Arial, sans-serif;
-    margin-bottom: 20px; /* Отступ снизу */
+    margin-bottom: 20px;
 }
 
-/* Стили для метки */
+
 .rows-per-page label {
     font-size: 14px;
     color: #333;
 }
 
-/* Стили для выпадающего списка */
+
 .rows-per-page select {
     padding: 8px 12px;
     font-size: 14px;
@@ -220,36 +312,68 @@ h1 {
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Стили для выпадающего списка при наведении */
+
 .rows-per-page select:hover {
     border-color: #888;
 }
 
-/* Стили для выпадающего списка при фокусе */
+
 .rows-per-page select:focus {
     border-color: #007bff;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
     outline: none;
 }
 
-/* Стили для опций внутри выпадающего списка */
+
 .rows-per-page select option {
     padding: 8px;
     background-color: #fff;
     color: #333;
 }
 
-/* Стили для опций при наведении */
+
 .rows-per-page select option:hover {
     background-color: #f0f0f0;
 }
 
 
 .rows-per-page select {
-    appearance: none; /* Убираем стандартный вид стрелки */
+    appearance: none;
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23333"><path d="M7 10l5 5 5-5z"/></svg>');
     background-repeat: no-repeat;
     background-position: right 10px center;
     background-size: 12px;
-    padding-right: 30px; /* Добавляем место для иконки */
+    padding-right: 30px;
 }
+
+input[type="text"] {
+    padding: 10px;
+    border: 2px solid #9fbf43;
+    border-radius: 5px;
+    font-size: 16px;
+    width: calc(100% - 24px);
+    margin-bottom: 10px;
+}
+
+select{
+    padding: 10px;
+    border: 2px solid #9fbf43;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    appearance: none;
+    background-color: white;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"><polygon points="0,0 5,5 10,0" fill="#4CAF50"/></svg>'); /* Стрелка вниз */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+}
+
+
+select:hover {
+    border-color: #45a049;
+}
+
+
+
+
+

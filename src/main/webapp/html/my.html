@@ -7,50 +7,57 @@
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
-<h1>Task Management</h1>
+<div class="container-main">
+    <div class="container-table">
+        <div class="rows-per-page">
+            <label for="rowsPerPage"></label>
+            <select class="rows" id="rowsPerPage" onchange="showList(0)">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+            </select>
+        </div>
 
-<div class="form-container">
-    <h2>Add Task</h2>
-    <label for="description"></label>
-    <input type="text" id="description" placeholder="Description">
-    <label for="status"></label>
-    <select id="status">
-        <option value="DONE">DONE</option>
-        <option value="PAUSED">PAUSED</option>
-        <option value="IN_PROGRESS">IN_PROGRESS</option>
-    </select>
-    <button onclick="addTask()">Add Task</button>
-</div>
+        <table id="taskTable">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th class="description-column">Description</th>
+                <th class="status-column">Status</th>
+                <th class="actions-column">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
 
-<div class="rows-per-page">
-    <label for="rowsPerPage"></label>
-    <select id="rowsPerPage" onchange="showList(0)">
-        <option value="5">5</option>
-        <option value="10">10</option>
-        <option value="20">20</option>
-        <option value="50">50</option>
-    </select>
-</div>
+        <div id="pagination">
+            <div id="paging_buttons"></div>
+        </div>
+    </div>
 
-<table id="taskTable">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Description</th>
-        <th class="status">Status</th>
-        <th class="action">Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    </tbody>
-</table>
-
-<div id="pagination">
-    <button onclick="showList(0)">1</button>
+    <!-- Контейнер для формы добавления задачи -->
+    <div class="form-container">
+        <h2>Add Task</h2>
+        <label for="description"></label>
+        <input type="text" id="description" placeholder="Description">
+        <label for="status"></label>
+        <select id="status">
+            <option value="DONE">DONE</option>
+            <option value="PAUSED">PAUSED</option>
+            <option value="IN_PROGRESS">IN_PROGRESS</option>
+        </select>
+        <button onclick="addTask()">Add Task</button>
+    </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="../css/script1.js"></script>
-
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        showList(0); // Вызов функции showList(0) при загрузке страницы
+    });
+</script>
 </body>
 </html>

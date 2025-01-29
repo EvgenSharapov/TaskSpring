@@ -17,6 +17,7 @@ import java.util.Properties;
 
 @Repository(value = "db")
 public class TaskRepositoryDB implements TaskRepository {
+
     private final SessionFactory sessionFactory;
 
     public TaskRepositoryDB() {
@@ -33,6 +34,9 @@ public class TaskRepositoryDB implements TaskRepository {
                 .addProperties(properties)
                 .buildSessionFactory();
     }
+
+
+
 
     @Override
     public List<Task> getAll(int pageNumber, int pageSize) {

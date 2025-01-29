@@ -15,7 +15,7 @@ import static java.util.Objects.nonNull;
 @Service
 public class TaskService {
     private final TaskRepository taskRepository;
-//@Qualifier(value = "db")
+
     public TaskService(@Autowired TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
     }
